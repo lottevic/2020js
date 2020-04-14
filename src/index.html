@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-TW">
+<head>
+  <title>js函式練習主頁</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+</head>
+
+<body>
+  <!-- 一樣的menu -->
+  <nav class="v-topmenu">
+    <div class="v-logo"><a href='index.html'>LOGO</a></div>
+    <ul class="v-topitem">
+      <li class="v-item"><a href="ex1.html" class="" id='item1'>練習一</a></li>
+      <li class="v-item"><a href="ex2.html" class="" id='item2'>練習二</a></li>
+      <li class="v-item" ><a href="ex3.html" class="" id='item3'>練習三</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <h2>主頁：計算機練習</h2>
+    <p> 我要點： </p>
+    <p> <input type='text' id='idCoke' size="10"> 杯可樂 (15元)</p>
+    <p> <input type='text' id='idHam' size="10"> 個漢堡 (30元)</p>
+    <p> <button id='idCountSum'>計算中</button> </p>
+    <p>總數目：<span id='idAns'>___</span>元</p>
+  </section>
+
+  <script>
+    var cokeprice = 15;
+    var hamprice = 50;
+    var c_num, h_num;
+
+    //函數傳值
+    function count(cokenum, hamnum) {
+      var answer = (cokeprice * cokenum) + (hamprice * hamnum);
+      console.log('總數目：' + answer + '元');
+      //練習return
+      return answer;
+    }
+    document.getElementById('idCountSum').onclick = function () {
+      //轉換型別
+      c_num = parseInt(document.getElementById('idCoke').value);
+      h_num = parseInt(document.getElementById('idHam').value);
+      console.log('可樂數目：' + c_num);
+      console.log('漢堡數目：' + h_num);
+      //呼叫函數
+      var price = count(c_num, h_num);
+      document.getElementById('idAns').textContent = price;
+    }
+  </script>
+
+</body>
+</html>
