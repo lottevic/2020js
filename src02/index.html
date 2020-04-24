@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-TW">
+<head>
+  <title>js陣列與主頁</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+</head>
+
+<body>
+  <!-- 一樣的menu -->
+  <nav class="v-topmenu">
+    <div class="v-logo"><a href='index.html'>練習主頁</a></div>
+    <ul class="v-topitem">
+      <li class="v-item"><a href="amchart.html" class="" id='item1'>amchart練習</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <div class="col">
+      <h3>陣列練習 <a onclick='printResult(1);'>看結果</a></h3>
+      <p>CornField: <span id="idCornFieldArray"></span></p>
+      <p>總共多少值: <span id="idCornFieldLen"></span></p>
+      <p>&nbsp;</p>
+      <p><input type="text" placeholder="輸入數字" id="idInput" ><br></p>
+      <p></p><button id="idDopush">Push()數字進CornField!</button></p>
+      <p>&nbsp;</p>
+      <p><input type="text" placeholder="輸入Array Index" id="idIndex" ><br></p>
+      <p><input type="text" placeholder="輸入數字" id="idIndexNum" ><br></p>
+      <p><button id="idDopushIndex">Assign數字進指定位置!</button></p>
+    </div>
+    <div class="col">
+      <h3>物件練習 <a onclick='printResult(2);'>看結果</a></h3>
+      <p>Farm: <span id="idFarmObj"></span></p>
+      <p>&nbsp;</p>
+      <p><input type="text" placeholder="輸入主人姓名" id="idFarmer"><br></p>
+      <p><button id="idDopushFarmer">修改主人姓名!</button></p>
+      <p>&nbsp;</p>
+      <p><input type="text" placeholder="新增兒子名字" id="idSon"><br></p>
+      <p><button id="idDopushSon">Push()新兒子!</button></p>
+    </div>
+  </section>
+
+  <script>
+  var cornField = [0, 1];
+  var farmObj = {
+    farmer: 'Jimmy',
+    son: ['Thomas','Sven'],
+    myprint: function(printId){
+      var str = JSON.stringify(farmObj); 
+      document.getElementById('idFarmObj').textContent = str;
+    }
+  };  
+  function printResult(select){
+    if(select==1){
+      document.getElementById('idCornFieldArray').textContent = cornField;
+      document.getElementById('idCornFieldLen').textContent = cornField.length;
+    }else if(select==2){
+      farmObj.myprint(idFarmObj);
+    }
+  }
+
+  document.getElementById('idDopush').onclick = function () {
+    var mynum;
+    mynum = parseInt(document.getElementById('idInput').value);
+    //push!!!
+    cornField.push(mynum);
+    printResult(1);
+  }
+  document.getElementById('idDopushIndex').onclick = function () {
+      var myindex, mynum;
+      myindex = parseInt(document.getElementById('idIndex').value);
+      mynum = parseInt(document.getElementById('idIndexNum').value);
+      //assign value!!
+      cornField[myindex] = mynum;
+      printResult(1);
+  } 
+  document.getElementById('idDopushSon').onclick = function () {
+    //push!!!
+    farmObj.son.push(document.getElementById('idSon').value);
+    printResult(2);
+  }
+  document.getElementById('idDopushFarmer').onclick = function () {
+    farmObj.farmer = document.getElementById('idFarmer').value;
+    printResult(2);
+  }      
+  </script>
+
+</body>
+</html>
