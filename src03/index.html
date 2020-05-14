@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-TW">
+<head>
+  <title>js控制判斷/迴圈</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+</head>
+
+<body>
+  <!-- 一樣的menu -->
+  <nav class="v-topmenu">
+    <div class="v-logo"><a href='index.html'>練習主頁</a></div>
+    <ul class="v-topitem">
+      <!-- <li class="v-item"><a href="#" class="" id='item1'>練習</a></li> -->
+    </ul>
+  </nav>
+
+  <section>
+    <div class="row">
+      <h3>習題練習</h3>
+      <div class="snapwrapper">
+        <img class="snapshot" src="photo/ex27.jpg" alt="">
+        <img class="snapshot" src="photo/ex28.jpg" alt="">
+        <img class="snapshot" src="photo/ex29.jpg" alt="">
+        <img class="snapshot" src="photo/ex30.jpg" alt="">
+        <img class="snapshot" src="photo/ex31.jpg" alt="">
+      </div>
+    </div>
+
+    <div class="row"">
+      <h3>Switch Case練習 </h3>
+      <p>
+        <label for="weatherID"">今日天氣：</label>
+        <select name="" id="weatherID">
+          <option value="sunny">晴天</option>
+          <option value="rainy">雨天</option>
+          <option value="cloudy">陰天</option>
+        </select>
+        <!-- <button onclick='printWeather("weatherID");'>確定</button> -->
+      </p>
+      <p>今日天氣：<span id="weatherTxt">還沒選擇喔~</span></p>
+      <img style="width: 50px; height: 50px;" src='assets/img/default.svg' id="weatherImg">
+<pre>
+document.getElementById("weatherID").addEventListener("change", printWeather); //當下拉選單切換還擇時 執行函數
+
+function printWeather() {
+  var v = document.getElementById(this.id).value; //下拉選單option 的value
+  var idx = document.getElementById(this.id).selectedIndex; //下拉選單被選中的option 序號
+  var txt = document.getElementById(this.id).options[idx].text; //下拉選單被選中的option 的文字
+
+  document.getElementById('weatherTxt').textContent = txt;
+  switch(v){
+    case 'sunny':
+      document.getElementById('weatherImg').src = "assets/img/sunny.svg";
+      break;
+    case 'rainy':
+      document.getElementById('weatherImg').src = "assets/img/rainy.svg";
+      break;
+    case 'cloudy':
+      document.getElementById('weatherImg').src = "assets/img/cloudy.svg";
+      break;
+    default:
+      document.getElementById('weatherImg').src = "assets/img/default.svg";
+      break;
+  }
+}
+</pre>
+    </div>
+  </section>
+
+  <script>
+  
+  document.getElementById("weatherID").addEventListener("change", printWeather); //當下拉選單切換還擇時 執行函數
+
+  function printWeather() {
+      var v = document.getElementById(this.id).value; //下拉選單option 的value
+      var idx = document.getElementById(this.id).selectedIndex; //下拉選單被選中的option 序號
+      var txt =  document.getElementById(this.id).options[idx].text; //下拉選單被選中的option 的文字
+
+      document.getElementById('weatherTxt').textContent = txt;
+      switch(v){
+        case 'sunny':
+          document.getElementById('weatherImg').src = "assets/img/sunny.svg";
+          break;  
+        case 'rainy':
+          document.getElementById('weatherImg').src = "assets/img/rainy.svg";
+          break;
+        case 'cloudy':
+          document.getElementById('weatherImg').src = "assets/img/cloudy.svg";
+          break;  
+        default:
+          document.getElementById('weatherImg').src = "assets/img/default.svg";
+          break;
+      }
+    }
+  </script>
+
+</body>
+</html>
