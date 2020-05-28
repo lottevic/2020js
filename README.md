@@ -2,7 +2,7 @@
 
 [js入門篇](https://www.udemy.com/course/javascript-learning/)
 
-# 第8節 控制判斷 (5月 week3-4/src04)
+# 第8節 DOM操作 (5月 week3-4/src04)
 - 練習
   1. querySelectorAll()
   1. setAttribute()
