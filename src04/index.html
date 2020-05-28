@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-TW">
+<head>
+  <title>js DOM操作</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+
+  <style>
+    .purple_bg{ background-color: #7300ff;}
+    .blue_bg{ background-color: #1a73e8;}
+    a.purple, a.purple:visited{ color: #7300ff;}
+    a.blue, a.blue:visited{ color: #1a73e8; }
+  </style>
+</head>
+
+<body>
+  <!-- 一樣的menu -->
+  <nav class="v-topmenu">
+    <div class="v-logo"><a href='#'>DOM操作</a></div>
+    <ul class="v-topitem">
+      <!-- <li class="v-item"><a href="#" class="" id='item1'>練習</a></li> -->
+    </ul>
+  </nav>
+
+  <section>
+
+    <div class="row"">
+      <div class="col-6">
+        <h3>練習1. querySelectorAll()</h3>
+        <button onclick='changClassText();'>列出項次</button>
+        <p class="titleClass">第<em> </em>項</p>
+        <p class="titleClass">第<em> </em>項</p>
+        <p class="titleClass">第<em> </em>項</p>
+        <pre>
+function changClassText() {
+  var el = document.querySelectorAll('.titleClass em');
+  var elLen = el.length;
+  for(var i = 0; i < elLen; i++){ el[i].textContent=i+1; } 
+}
+        </pre>
+      </div>
+      <div class="col-6">
+        <h3>練習2. setAttribute()</h3>
+        <button class='purple_bg' onclick='changAHref("https://yahoo.com");'>要去 yahoo 島</button>
+        <button class='blue_bg' onclick='changAHref("https://google.com");'>要去 google 島</button>
+        <p class="ahrefClass"><a href='#' target='_blank' rel="noopener noreferrer">點此出島~</a></p>
+        <p></p>
+        <pre>
+function changAHref(link){
+  //設置超連結
+  var el = document.querySelector('.ahrefClass a');
+  el.setAttribute('href', link); 
+  //改顏色的文字
+  switch(link){
+    case "https://yahoo.com":
+      el.setAttribute('class', 'purple');
+      break;
+    case "https://google.com":  
+      el.setAttribute('class', 'blue');
+      break;
+    default:
+      break; 
+  }
+}
+        </pre>
+      </div>
+    </div>
+    <div class="row"">
+          <div class=" col-6">
+      <h3>練習3. innerHTML()</h3>
+      <button onclick='layoutFamily();'>layout項目</button>
+      <p>資料內容: <br>var familys = <span id='idFamily'></span></p>
+      <h3>家庭成員清單：</h3>
+      <table class="tableFamily">
+
+      </table>
+      <xmp>
+<table class="tableFamily">
+</table>
+      </xmp> 
+      <xmp>
+function layoutFamily(){
+  var el = document.querySelector('.tableFamily');
+  var famLen = familys.length;
+  var mystr =  '<tr><th>老爸</th>' + '<th>小孩</th></tr>'; 
+  for(var i=0; i<famLen; i++){
+    //innerHTML需使用累加 += 方式新增項目
+    mystr += '<tr><td>' + familys[i].dad + '</td>' + '<td>' + familys[i].kid + '</td></tr>'; 
+    el.innerHTML = mystr;
+  }
+}
+      </xmp>
+    </div>
+    <div class="col-6">
+      <h3>練習4. createElement()</h3>
+      <button onclick='layoutFamily2();'>layout項目</button>
+      <p>資料內容: <br>var familys = <span id='idFamily2'></span></p>
+      <h3>家庭成員清單：</h3>
+      <table class="tableFamily2">
+      
+      </table>
+      <xmp>
+function layoutFamily2() {
+    var el = document.querySelector('.tableFamily2');
+    var famLen = familys.length;
+    for (var i = 0; i < famLen; i++) {
+      var mytr = document.createElement('tr');  
+      var mytd_dad = document.createElement('td');  
+      var mytd_kid = document.createElement('td');  
+      //1) td爸爸 append到tr
+      mytd_dad.textContent = familys[i].dad; //<td>dad</td>
+      mytr.appendChild(mytd_dad);
+      //2) td小孩 append到tr
+      mytd_kid.textContent = familys[i].kid; //<td>kid</td>
+      mytr.appendChild(mytd_kid);//<tr> <td>dad</td><td>kid</td> </tr>
+      //3) tr append 到 table
+      el.appendChild(mytr);
+    }
+}     
+      </xmp>
+    </div>
+    </div>
+  </section>
+
+  <script>
+  //練習3  
+  var familys = [
+    {
+      dad: '郭靖',
+      kid: ['郭芙', '郭襄'],
+    }, {
+      dad: '楊康',
+      kid: ['楊過'],
+    }
+  ];
+  document.getElementById('idFamily').textContent = JSON.stringify(familys);
+  function layoutFamily(){
+    var el = document.querySelector('.tableFamily');
+    var famLen = familys.length;
+    var mystr =  '<tr><th>老爸</th>'
+                + '<th>小孩</th></tr>'; 
+    for(var i=0; i<famLen; i++){
+      //innerHTML需使用累加 += 方式新增項目
+      mystr += '<tr><td>' + familys[i].dad + '</td>'
+                    + '<td>' + familys[i].kid + '</td></tr>'; 
+      el.innerHTML = mystr;
+    }
+  }     
+  //練習4
+  document.getElementById('idFamily2').textContent = JSON.stringify(familys);
+  function layoutFamily2() {
+    var el = document.querySelector('.tableFamily2');
+    var famLen = familys.length;
+    for (var i = 0; i < famLen; i++) {
+      var mytr = document.createElement('tr');  
+      var mytd_dad = document.createElement('td');  
+      var mytd_kid = document.createElement('td');  
+      //1) td爸爸 append到tr
+      mytd_dad.textContent = familys[i].dad; //<td>dad</td>
+      mytr.appendChild(mytd_dad);
+      //2) td小孩 append到tr
+      mytd_kid.textContent = familys[i].kid; //<td>kid</td>
+      mytr.appendChild(mytd_kid);//<tr> <td>dad</td><td>kid</td> </tr>
+      //3) tr append 到 table
+      el.appendChild(mytr);
+    }
+  }     
+  //練習1
+  function changClassText() {
+      var el = document.querySelectorAll('.titleClass em');
+      var elLen = el.length;
+
+      for(var i=0; i<elLen; i++){
+        el[i].textContent = i+1;
+      }
+  }
+  //練習2
+  function changAHref(link){
+      //設置超連結
+      var el = document.querySelector('.ahrefClass a');
+      el.setAttribute('href', link); 
+      //改顏色的文字
+      switch(link){
+        case "https://yahoo.com":
+          el.setAttribute('class', 'purple');
+          break;
+        case "https://google.com":  
+          el.setAttribute('class', 'blue');
+          break;
+        default:
+          break; 
+      }
+  }
+
+  </script>
+
+</body>
+</html>

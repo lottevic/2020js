@@ -50,7 +50,7 @@
     son: ['Thomas','Sven'],
     myprint: function(printId){
       var str = JSON.stringify(farmObj); 
-      document.getElementById('idFarmObj').textContent = str;
+      document.getElementById(printId).textContent = str;
     }
   };  
   function printResult(select){
@@ -58,7 +58,7 @@
       document.getElementById('idCornFieldArray').textContent = cornField;
       document.getElementById('idCornFieldLen').textContent = cornField.length;
     }else if(select==2){
-      farmObj.myprint(idFarmObj);
+      farmObj.myprint('idFarmObj');
     }
   }
 

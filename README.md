@@ -2,6 +2,14 @@
 
 [js入門篇](https://www.udemy.com/course/javascript-learning/)
 
+# 第8節 控制判斷 (5月 week3-4/src04)
+- 練習
+  1. querySelectorAll()
+  1. setAttribute()
+  1. innerHTML()
+  1. createElement()
+- [連結](https://lottevic.github.io/2020js/src04)
+
 # 第7節 控制判斷 (5月 week1-2/src03)
 - 練習1-做教學頁面的習題
 - 練習2-根據下拉選單選擇的值，用switch/case切換結果文字與圖片
