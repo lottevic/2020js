@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-TW">
+<head>
+  <title>js event事件</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+
+  <style>
+    .box, .box2, .box3{
+      width: 100%;
+      max-width: 300px;
+      height: 100px;
+      background-color: #cccccc;
+      padding: 10px;
+      text-align: center;
+    }
+    /* .purple_bg{ background-color: #7300ff;}
+    .blue_bg{ background-color: #1a73e8;}
+    a.purple, a.purple:visited{ color: #7300ff;}
+    a.blue, a.blue:visited{ color: #1a73e8; } */
+  </style>
+</head>
+
+<body>
+  <!-- 一樣的menu -->
+  <nav class="v-topmenu">
+    <div class="v-logo"><a href='#'>event事件</a></div>
+    <ul class="v-topitem">
+      <li class="v-item"><a href="index.html" class="active" id='item1'>練習1-5</a></li>
+      <li class="v-item"><a href="index2.html" class="" id='item1'>練習6</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <div class="row"">
+      <div class="col-6 ">
+        <h3>練習1. addEventListener()</h3>
+        <div class="box">
+          <p>box (設true：evt由外向內傳 )</p>
+          <button class='btnAdd'>add點擊</button>
+        </div>
+        <pre>
+elAd.addEventListener('click', function(e){
+  alert("點了btn、觸發事件1");
+}, false);
+elAd.addEventListener('click', function (e) {
+  alert("點了btn、觸發事件2");
+}, false);
+elBox.addEventListener('click', function (e) {
+  alert("點了box、觸發事件3");
+},<span>true</span>);
+        </pre>
+        <div class="box2">
+          <p>box (設false：evt由內向外傳)</p>
+          <button class='btnAdd2'>add點擊</button>
+        </div>
+        <pre>
+elAd2.addEventListener('click', function(e){
+  alert("點了btn、觸發事件1");
+}, false);
+elAd2.addEventListener('click', function (e) {
+  alert("點了btn、觸發事件2");
+}, false);
+elBox2.addEventListener('click', function (e) {
+  alert("點了box、觸發事件3");
+},<span>false</span>);
+                </pre>
+      </div>
+      <div class="col-6 ">
+        <h3>練習2. e.stopPropagation()阻止氣泡事件</h3>
+        <div class="box3">
+          <p>box </p>
+          <button class='btnAdd3'>add點擊</button>
+        </div>
+        <pre>
+elAd3.addEventListener('click', function(e){
+  <span>e.stopPropagation();//停止傳遞</span>
+  alert("點了btn、觸發事件1");
+}, false);
+elAd3.addEventListener('click', function (e) {
+  alert("點了btn、觸發事件2");
+}, false);
+elBox3.addEventListener('click', function (e) {
+  alert("點了box、觸發事件3");
+},false);
+        </pre>
+        <h3>練習3. e.preventDefault()停止默認行為</h3>
+        <a href="https://google.com" class='linkOriginal'>我是超連結1，點我出現alert</a><br>
+        <a href="https://google.com" class='linkOriginal2'>我是超連結2，關掉默認行為，點我出現alert</a>
+        <pre>
+document.querySelector('.linkOriginal').addEventListener('click', function (e) {
+  alert("點了超連結1");
+}, false);
+document.querySelector('.linkOriginal2').addEventListener('click', function (e) {
+  <span>e.preventDefault();</span>
+  alert("點了超連結2, 有加e.preventDefault()");
+}, false);
+       </pre>
+      </div>
+    </div>
+    <div class="row"">
+          <div class=" col-6 ">
+            <h3>練習4. 取得 e.target.id/監聽綁定父元素</h3>
+            <style>
+              .idClassList li{
+                padding: 5px 10px;
+                margin: 2px;
+                background-color: #eee;
+              }
+            </style>
+            <div class=" idClassList">
+      <ul>
+        <li><a href="#" id='idTest1'>點擊測試1</a></li>
+        <li><a href="#" id='idTest2'>點擊測試2</a></li>
+      </ul>
+      <p>選取到a標籤的連結文字:<span id='idhahaha'></span></p>
+    </div>
+    <xmp>
+      <div class="idClassList">
+        <ul>
+          <li><a href="#" id='idTest1'>點擊測試1</a></li>
+          <li><a href="#" id='idTest2'>點擊測試2</a></li>
+        </ul>
+      </div>
+    </xmp>
+    <pre>
+  //監聽父元素
+  document.querySelector('.idClassList').addEventListener( 'click', printLinkTxtOnly, false );
+  function printLinkTxtOnly(e){
+    e.preventDefault();
+    alert(" 點到的元素: " + e.target.nodeName + " 點到的id: " + e.target.id);
+    if(e.target.nodeName != "A"){ return; }
+    document.getElementById('idhahaha').innerHTML = e.target.textContent;
+  }
+            </pre>
+    </div>
+    <div class="col-6 ">
+      <h3>練習5. 表單選取更改</h3>
+      <select name="" id="idArea">
+        <option value="台北市">台北市</option>
+        <option value="台中市">台中市</option>
+      </select>
+      <br>
+      <p>選取的：<span id='idresult'></span></p>
+      <pre>
+    var area = document.getElementById('idArea');
+    area.addEventListener('change', updateList, false);
+    function updateList(e) {
+      idresult.innerHTML = <span>e.target.value</span>;
+    }
+    </pre>
+    </div>
+    </div>
+  </section>
+
+  <script>
+
+//1    
+    var elAd = document.querySelector('.btnAdd');
+    var elBox = document.querySelector('.box');
+    //可綁定多個事件
+    elAd.addEventListener('click', function(e){
+      alert("點了btn、觸發事件1");
+    }, false);
+    elAd.addEventListener('click', function (e) {
+        alert("點了btn、觸發事件2");
+    }, false);
+    //從內到外
+    elBox.addEventListener('click', function (e) {
+        alert("點了box、觸發事件3");
+    },true);
+
+//1
+    var elAd2 = document.querySelector('.btnAdd2');
+    var elBox2 = document.querySelector('.box2');
+    //可綁定多個事件
+    elAd2.addEventListener('click', function (e) {
+      alert("點了btn、觸發事件1");
+    }, false);
+    elAd2.addEventListener('click', function (e) {
+      alert("點了btn、觸發事件2");
+    }, false);
+    //從內向外
+    elBox2.addEventListener('click', function (e) {
+      alert("點了box、觸發事件3");
+    }, false);
+//2
+    var elAd3 = document.querySelector('.btnAdd3');
+    var elBox3 = document.querySelector('.box3');
+    elAd3.addEventListener('click', function (e) {
+      e.stopPropagation();
+      alert("點了btn、觸發事件1");
+    }, false);
+    elAd3.addEventListener('click', function (e) {
+      alert("點了btn、觸發事件2");
+    }, false);
+    elBox3.addEventListener('click', function (e) {
+      alert("點了box、觸發事件3");
+    }, false);
+//3
+    document.querySelector('.linkOriginal').addEventListener('click', function (e) {
+        alert("點了超連結1");
+    }, false);
+    document.querySelector('.linkOriginal2').addEventListener('click', function (e) {
+      e.preventDefault();
+      alert("點了超連結2, 有加e.preventDefault()");
+    }, false);
+//4
+  //監聽父元素
+  document.querySelector('.idClassList').addEventListener( 'click', printLinkTxtOnly, false );
+  function printLinkTxtOnly(e){
+    e.preventDefault();
+    alert(" 點到的元素: " + e.target.nodeName + " 點到的id: " + e.target.id);
+    if(e.target.nodeName != "A"){ return; }
+    document.getElementById('idhahaha').innerHTML = e.target.textContent;
+  }
+//5
+  var area = document.getElementById('idArea');
+  area.addEventListener('change', updateList, false);
+  function updateList(e) {
+     document.getElementById('idresult').innerHTML = e.target.value;
+  }    
+  </script>
+
+</body>
+</html>

@@ -2,7 +2,12 @@
 
 [js入門篇](https://www.udemy.com/course/javascript-learning/)
 
-# 第8節 DOM操作 (5月 week3-4/src04)
+# 第10節 event事件 (6月 week1-2/src05)
+- 練習1-5 試做事件小範例
+- 練習6   keydown/keyup 練習
+- [連結](https://lottevic.github.io/2020js/src05)
+
+# 第9節 DOM操作 (5月 week3-4/src04)
 - 練習
   1. querySelectorAll()
   1. setAttribute()

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-TW">
+<head>
+  <title>js event事件</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+
+  <style>
+   body {
+        /* font: 1em sans-serif; */
+        /* text-align: center; */
+    }
+    .stage {
+        box-sizing: border-box;
+        border-bottom: 10px solid #78AB5B;
+        display: flex;
+        height: 400px;
+        width: 100%;
+        background-color: #B0E4EA;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+    }
+    .mushroom {
+        align-self: flex-end;
+        /* background-color: #F44336; */
+        background: url('assets/img/mario.svg') no-repeat center center;
+        height: 100px;
+        margin: 0 auto 0 auto;
+        width: 100px;
+        background-size: 100px 100px;
+    }
+    .bounce-5 {
+        transform-origin: bottom;
+        animation-duration: 0.5s;
+        animation-iteration-count: infinite;
+        animation-name: bounce-5;
+        animation-timing-function: ease;
+    }
+    @keyframes bounce-5 {
+        0%   { transform: scale(1,1)    translateY(0); }
+        10%  { transform: scale(1.1,.9) translateY(0); }
+        30%  { transform: scale(.9,1.1) translateY(-250px); }
+        50%  { transform: scale(1,1)    translateY(0); }
+        57%  { transform: scale(1,1)    translateY(-7px); }
+        100% { transform: scale(1,1)    translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 一樣的menu -->
+  <nav class="v-topmenu">
+    <div class="v-logo"><a href='#'>event事件</a></div>
+    <ul class="v-topitem">
+      <li class="v-item"><a href="index.html" class="" id='item1'>練習1-5</a></li>
+      <li class="v-item"><a href="index2.html" class="active" id='item1'>練習6</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <div class="row"">
+      <div class="col-12" style="text-align: center;">
+        <h3>請長按 1 2 3 鍵，看效果！</h3>
+        <div class="stage">
+          <div class="mushroom idMush1 "></div>
+          <div class="mushroom idMush2 "></div>
+          <div class="mushroom idMush3 "></div>
+        </div>
+      </div>
+    </div>
+    <div class="row"">
+      <div class=" col-12">
+        <pre>
+  var body = document.body;
+  body.addEventListener(<span>'keydown'</span>, goJump, false);
+  body.addEventListener(<span>'keyup'</span>, clearJump, false);
+  function clearJump(e) {
+      <span>switch (e.keyCode)</span> {
+        case 49:
+          document.querySelector('.idMush1').classList.remove('bounce-5');
+          break;
+        case 50:
+          document.querySelector('.idMush2').classList.remove('bounce-5');
+          break;
+        case 51:
+          document.querySelector('.idMush3').classList.remove('bounce-5');
+          break;
+        default:
+          break;
+      }
+    }
+  function goJump(e){
+    <span>switch (e.keyCode)</span>{
+      case 49:
+        document.querySelector('.idMush1').classList.add('bounce-5');
+        break;
+      case 50:
+        document.querySelector('.idMush2').classList.add('bounce-5');
+        break;
+      case 51:
+        document.querySelector('.idMush3').classList.add('bounce-5');
+        break;
+      default:
+        break;
+    }
+  }
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <script>
+//6
+  var body = document.body;
+  body.addEventListener('keydown', goJump, false);
+  body.addEventListener('keyup', clearJump, false);  
+  function clearJump(e) {
+      console.log('up'+e.keyCode);
+      switch (e.keyCode) {
+        case 49:
+          document.querySelector('.idMush1').classList.remove('bounce-5');
+          break;
+        case 50:
+          document.querySelector('.idMush2').classList.remove('bounce-5');
+          break;
+        case 51:
+          document.querySelector('.idMush3').classList.remove('bounce-5');
+          break;
+        default:
+          break;
+      }
+    }
+  function goJump(e){
+    console.log(e.keyCode);
+    switch(e.keyCode){
+      case 49:
+        document.querySelector('.idMush1').classList.add('bounce-5');
+        break;
+      case 50:
+        document.querySelector('.idMush2').classList.add('bounce-5');
+        break;
+      case 51:
+        document.querySelector('.idMush3').classList.add('bounce-5');
+        break;
+      default:
+        break;
+    }
+  }
+  </script>
+
+</body>
+</html>
