@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-TW">
+<head>
+  <title>js event事件</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+
+  <style>
+    .stage {
+        box-sizing: border-box;
+        border-bottom: 10px solid #78AB5B;
+        display: flex;
+        height: 200px;
+        width: 100%;
+        background-color: #B0E4EA;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+        position: relative;
+        cursor: url('assets/img/pika.svg'), auto;
+    }
+    .ball{
+        background: url('assets/img/ball.svg') no-repeat center center;
+        height: 50px;
+        margin: 0 auto 0 auto;
+        width: 50px;
+        background-size: 50px auto;
+        position: absolute;
+        /* cursor: url('assets/img/ball2.svg'), auto; */
+    }
+    .ballblack{
+      background-image: url('assets/img/ball2.svg');
+    }
+    .ball1{
+      top: 0px;
+      left: 10%;
+      animation: fontbulger 1s infinite;
+    }
+    .ball2{
+      top: 0px;
+      left: 25%;
+      animation: fontbulger 1.5s infinite;
+    }
+    .ball3{
+      top: 0px;
+      left: 40%;
+      animation: fontbulger 2.5s infinite;
+    }
+    .ball4{
+      top: 0px;
+      left: 55%;
+      animation: fontbulger 1.2s infinite;
+    }
+    .ball5{
+      top: 0px;
+      left: 70%;
+      animation: fontbulger 1s infinite;
+    }
+    .ball6{
+      top: 0px;
+      left: 85%;
+      animation: fontbulger 1.5s infinite;
+    }
+    @keyframes fontbulger {
+      0% {
+        top: 0px;
+      }
+      30% {
+        top: 150px;
+      }
+      100% {
+        top: 0px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 一樣的menu -->
+  <nav class="v-topmenu">
+    <div class="v-logo"><a href='#'>event事件</a></div>
+    <ul class="v-topitem">
+      <!-- <li class="v-item"><a href="index.html" class="active" id='item1'>滑鼠事件</a></li> -->
+      <!-- <li class="v-item"><a href="index2.html" class="active" id='item1'>練習6</a></li> -->
+    </ul>
+  </nav>
+
+  <section>
+    <div class="row"">
+      <div class="col-12" style="text-align: center;">
+        <h3>皮卡丘注意啦</h3>
+        <div class="stage">
+          <div class="ball ball1"></div>
+          <div class="ball ballblack ball2"></div>
+          <div class="ball ball3"></div>
+          <div class="ball ball4"></div>
+          <div class="ball ballblack ball5"></div>
+          <div class="ball ballblack ball6"></div>
+        </div>
+        <a href="https://jsbin.com/venuqoreqi/edit?html,css,output" target='_blank' style="display: block; margin-top: 10px; text-align:right;">原始出處</a>
+      </div>
+    </div>
+    <div class="row"">
+      <div class=" col-12">
+        <xmp>
+<div class="stage">
+  <div class="ball ball1"></div>
+  <div class="ball ballblack ball2"></div>
+  <div class="ball ball3"></div>
+  <div class="ball ball4"></div>
+  <div class="ball ballblack ball5"></div>
+  <div class="ball ballblack ball6"></div>
+</div>
+        </xmp>
+        <pre>
+<span>var el_ball = document.querySelectorAll('.ball');</span>
+for (var i = 0; i < el_ball.length; i++) {
+  //ball div 偵測到滑鼠滑入
+  el_ball[i].addEventListener(<span>'mousemove'</span>, function (e) {
+    alert('抓到了!!!');
+  },false);
+}
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  var el_ball = document.querySelectorAll('.ball');
+  for (var i = 0; i < el_ball.length; i++) {
+    //ball div 偵測到滑鼠滑入
+    el_ball[i].addEventListener('mousemove', function (e) {
+      alert('抓到了!!!');
+    },false);
+  }
+  </script>
+
+</body>
+</html>

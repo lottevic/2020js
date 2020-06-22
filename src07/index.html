@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-TW">
+<head>
+  <title>local storage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+
+  <style>
+    .listli{
+      padding: 5px 10px;
+      background-color: lightpink;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 一樣的menu -->
+  <nav class="v-topmenu">
+    <div class="v-logo"><a href='#'>local storage</a></div>
+    <ul class="v-topitem">
+      <li class="v-item"><a href="index.html" class="active" id='item1'>練習1-2</a></li>
+      <li class="v-item"><a href="index2.html" class="" id='item2'>練習3</a></li>
+      <li class="v-item"><a href="index3.html" class="" id='item3'>練習todo list</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <div class="row"">
+
+      <div class="col-6" >
+        <button id='idSetLi'>重置資料</button>
+        <ul class='list'>
+          <li class="listli" data-gender='男' data-gold='5'>林克</li>
+          <li class="listli" data-gender='女' data-gold='18'>綠醬</li>
+        </ul>
+        <p>印出所選Item：<p id='idResult'></p></p>
+      
+      <xmp>
+//重置資料
+var newList =[
+{ people: '居民一號', gender:'女', gold:'77' },
+{ people: '居民二號', gender:'男', gold:'99' },
+{ people: '居民三號', gender:'女', gold: '333' }
+]
+function updateList(e) {
+  var str = '';
+  var len = newList.length;
+  for(var i=0; i<len; i++){
+    str += `
+    <li class="listli" data-gender='${newList[i].gender}' data-gold='${newList[i].gold}'>${newList[i].people}</li>
+  `;
+  }
+    document.querySelector('.list').innerHTML = str;  
+}
+//印出所選Item：
+function printItem(e){
+  var domName = e.target.nodeName;
+  if(domName != 'LI') {
+    console.log(domName);
+    return;
+  }
+  var rst = `
+    姓名: <b> ${e.target.textContent} </b><br>
+    性別: <b> ${e.target.dataset.gender} </b>，
+    金幣數：<b>${e.target.dataset.gold}</b>
+  `;
+  document.getElementById('idResult').innerHTML= rst;
+}        
+</xmp>
+      </div>
+      <div class="col-6">
+        <button id='idStoreItem'>資料存進local storage</button>
+        <pre id='idListObj'></pre>
+<pre>
+  //儲存local storage資料
+ document.getElementById('idStoreItem').addEventListener('click', storeList, false);
+    function storeList(){
+<span>        var newListStr = JSON.stringify(newList);
+        localStorage.setItem('newList', newListStr); </span>
+    } 
+</pre>
+      </div>
+    </div>
+    
+  </section>
+
+  <script>
+    var newList =[
+      { people: '居民一號', gender:'女', gold:'77' },
+      { people: '居民二號', gender:'男', gold:'99' },
+      { people: '居民三號', gender:'女', gold: '333' }
+    ]
+    //練習1
+    document.getElementById('idListObj').innerHTML = JSON.stringify(newList);
+    //將newList obj資料寫入local storage
+    document.getElementById('idStoreItem').addEventListener('click', storeList, false);
+    function storeList(){
+      // console.log
+        var newListStr = JSON.stringify(newList);
+        console.log(newListStr);
+        localStorage.setItem('newList', newListStr);
+    }
+    //練習2
+    document.getElementById('idSetLi').addEventListener('click', updateList, false);
+    //將newList obj的資料塞入li裡面
+    function updateList(e) {
+      var str = '';
+      var len = newList.length;
+      for(var i=0; i<len; i++){
+        str += `
+        <li class="listli" data-gender='${newList[i].gender}' data-gold='${newList[i].gold}'>${newList[i].people}</li>
+      `;
+      }
+       document.querySelector('.list').innerHTML = str;  
+       //reset result
+       var rst = ` `;
+      document.getElementById('idResult').innerHTML = rst;
+    }
+    
+    var listBtn = document.querySelector('.list');
+    listBtn.addEventListener('click', printItem, false);
+    //點到哪個li，就印出相對應的資料
+    function printItem(e){
+      var domName = e.target.nodeName;
+      if(domName != 'LI') {
+        console.log(domName);
+        return;
+      }
+      var rst = `
+        姓名: <b> ${e.target.textContent} </b><br>
+        性別: <b> ${e.target.dataset.gender} </b>，
+        金幣數：<b>${e.target.dataset.gold}</b>
+      `;
+      document.getElementById('idResult').innerHTML= rst;
+
+
+    }
+
+  </script>
+
+</body>
+</html>

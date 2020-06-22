@@ -2,6 +2,16 @@
 
 [js入門篇](https://www.udemy.com/course/javascript-learning/)
 
+#  (6月 week3-4/src06,src07)
+- mousemove event小範例
+- [連結](https://lottevic.github.io/2020js/src06)
+
+- local storage 練習
+- 練習1-2 update item / setItem
+- 練習3   getItem / delete / setItem
+- 練習    todo List範例，改寫成計算機
+- [連結](https://lottevic.github.io/2020js/src07)
+
 # 第10節 event事件 (6月 week1-2/src05)
 - 練習1-5 試做事件小範例
 - 練習6   keydown/keyup 練習

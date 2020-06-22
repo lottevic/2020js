@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-TW">
+<head>
+  <title>local storage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+
+  <style>
+    .rightRow, .listli{
+      padding: 10px;
+      margin: 2px 0;
+    }
+    .listli{
+      border-bottom: 1px solid #ccc; 
+      color: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .rightRow{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    h2{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 0 20px 0;
+    }
+    h2 small{
+      margin-left: 10px;
+    }
+    .mybtn{
+      padding: 9px 18px;
+      background-color: #aaa;
+      color: #fff;
+    }
+    .mybtn.okbtn{
+      background-color: RoyalBlue;
+    }
+    .mybtn.delbtn{
+      background-color: PaleVioletRed;
+    }
+    .myinput{
+      margin: 0 5px;
+    }
+    .bigNum{
+      font-size: 1.5rem;
+      margin: 0 5px;
+    }
+    .inputWrapper{
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 一樣的menu -->
+  <nav class="v-topmenu">
+    <div class="v-logo"><a href='#'>local storage</a></div>
+    <ul class="v-topitem">
+      <li class="v-item"><a href="index.html" class="" id='item1'>練習1-2</a></li>
+      <li class="v-item"><a href="index2.html" class="" id='item2'>練習3</a></li>
+      <li class="v-item"><a href="index3.html" class="active" id='item3'>練習todo list</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <div class="row"">
+      <div class="col-12" >
+        <h2>一起分攤的消費<small>(分享食物/包廂費/etc..)</small></h2>
+        <div class='rightRow'>
+          <div class='inputWrapper'>
+            <label for='idtogetherItemInput'>依序輸入單筆消費：</label>
+            <input type="text" class='myinput' id='idtogetherItemInput' size='10'>元
+          </div>
+          <button class='mybtn okbtn' id='idtogetherItemAdd'>新增</button>
+        </div>
+        <ul class='togetherBill'>
+          <!-- update by  updateList()-->
+        </ul>
+        <div class='rightRow'>
+          <p>消費總計：<span id='idtogetherSum' class='bigNum'></span>元</p>
+        </div>
+        <div class='rightRow'>
+          <div class='inputWrapper'>
+            <label for='idtogetherPplInput'>請輸入均分人數：</label>
+            <input type="text" class='myinput' id='idtogetherPplInput' size='10'>人
+          </div>
+          <button class='mybtn okbtn' id='idtogetherPplCount'>計算</button>
+        </div>
+        <div class='rightRow'>
+          <p>平均每人：<span id='idtogetherAvg' class='bigNum'></span>元</p>
+        </div>
+        <pre id='idListObj'></pre>
+      
+      </div>
+      <!-- <div class="col-6">
+        <h2>分開算的消費<small>(個人酒錢/甜點/etc...)</small></h2>
+        <h2>第一位user</h2>
+        <div class='rightRow'>
+          <div class='inputWrapper'>
+            <label for='iduser01ItemInput'>輸入個人單筆消費：</label>
+            <input type="text" class='myinput' id='iduser01ItemInput' size='10'>元
+          </div>
+          <button class='mybtn okbtn' id='iduser01ItemAdd'>新增</button>
+        </div>
+        <ul class='user01Bill'> -->
+          <!-- update by  updateList()-->
+        <!-- </ul>
+        <pre id='idUser01Obj'></pre>
+      </div>
+    </div> -->
+    
+  </section>
+
+  <script>
+    var togetherBillObj =[
+      // { price: 319 },
+      // { price: 420 },
+      // { price: 288 }
+    ]
+    var user01BillObj = [
+      // { price: 319 },
+      // { price: 420 },
+      // { price: 288 }
+    ]
+
+    //將togetherBill obj資料寫入<ul><li>, 儲存obj
+    //
+    function updateList(e) {
+        var str = '';
+        var bill_sum = 0;
+        var len = togetherBillObj.length;
+        //印出帳單項目
+        for (var i = 0; i < len; i++) {
+          str += `
+            <li class="listli" data-idx='${i}' >
+              <span>第${i}筆消費：<span class='bigNum'>${togetherBillObj[i].price}</span>元</span>
+              <button class='mybtn delbtn'>刪除</button>
+            </li>
+          `;
+          bill_sum += togetherBillObj[i].price;
+        }
+        document.querySelector('.togetherBill').innerHTML = str;  //更新清單
+        document.getElementById('idtogetherSum').innerHTML = bill_sum; //更新總計
+        //印出與儲存obj
+        var d_str = JSON.stringify(togetherBillObj);
+        document.getElementById('idListObj').innerHTML = "togetherBillObj = " + d_str;
+        localStorage.setItem('togetherBillObj', d_str);
+    }
+    updateList();
+    //
+    //新增togetherBill obj裡面的項目
+    //
+    document.getElementById('idtogetherItemAdd').addEventListener('click', addItem, false);
+    function addItem(e){
+      var together_price = parseInt(document.getElementById('idtogetherItemInput').value);
+      var together_item = { price: together_price};
+      togetherBillObj.push(together_item);
+      
+      updateList();
+      avgItem();
+    }    
+
+    //
+    //新增userBill obj裡面的項目
+    //
+    // document.getElementById('iduser01ItemAdd').addEventListener('click', addItemUser.bind(null,'iduser01ItemInput', user01BillObj, 'idUser01Obj'), false);
+    // function addItemUser(myinput, myobj, myid) {
+    //   console.log(myinput);
+    //   console.log(event.textContent);
+    //   var user_price = parseInt(document.getElementById(myinput).value);
+    //   var user_item = { price: user_price };
+    //   myobj.push(user_item);
+    //   console.log(myobj);
+    //   // updateListUser();
+    //   //印出與儲存obj
+    //   var d_str = JSON.stringify(myobj);
+    //   document.getElementById(myid).innerHTML = myid + ' = ' + d_str;
+    //   // avgItemUser();
+    // }    
+
+    //
+    //計算togetherBill平均值
+    //
+    document.getElementById('idtogetherPplCount').addEventListener('click', avgItem, false);
+    function avgItem(e) {
+        var together_ppl = parseInt(document.getElementById('idtogetherPplInput').value);
+        var together_sum = parseInt(document.getElementById('idtogetherSum').textContent);
+        console.log(together_ppl);  console.log(together_sum);
+        if(!together_ppl) { return; }
+        document.getElementById('idtogetherAvg').innerHTML = together_sum/together_ppl; //更新平均值
+        
+      }    
+    //
+    //刪除togetherBill obj裡面的項目
+    //
+    document.querySelector('.togetherBill').addEventListener('click', delItem, false);
+    //點到哪個li，就刪除第[i]筆資料
+    function delItem(e){
+      var domName = e.target.nodeName;
+      if(domName != 'BUTTON') {
+        console.log(domName);
+        return;
+      }
+      //點到button才做刪除
+      var idx = e.target.dataset.idx;
+      console.log('要刪除第_筆:'+idx)
+      //刪除
+      togetherBillObj.splice(idx, 1);
+      updateList();
+      avgItem();
+    }
+
+  </script>
+
+</body>
+</html>

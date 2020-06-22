@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-TW">
+<head>
+  <title>local storage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+
+  <style>
+    .listli{
+      padding: 5px 10px;
+      background-color: lightpink;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 一樣的menu -->
+  <nav class="v-topmenu">
+    <div class="v-logo"><a href='#'>local storage</a></div>
+    <ul class="v-topitem">
+      <li class="v-item"><a href="index.html" class="" id='item1'>練習1-2</a></li>
+      <li class="v-item"><a href="index2.html" class="active" id='item2'>練習3</a></li>
+      <li class="v-item"><a href="index3.html" class="" id='item3'>練習todo list</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <div class="row"">
+      <div class="col-12" >
+      <p>點擊到的資料就刪除</p>
+        <ul class='list'>
+
+        </ul>
+        <pre id='idListObj'></pre>
+      <pre>
+//讀取local storage資料        
+var newList = []
+<span>newList = JSON.parse(localStorage.getItem('newList'));</span>
+
+//點到哪個li，就刪除第[i]筆資料
+function delItem(e){
+  var domName = e.target.nodeName;
+  if(domName != 'LI') {
+    return;
+  }
+  var idx = e.target.dataset.idx;
+  console.log('要刪除第_筆:'+idx)
+  //刪除
+  newList.splice(idx, 1);
+  document.getElementById('idListObj').innerHTML = JSON.stringify(newList);
+  updateList();
+  //更新local storage內容
+  localStorage.setItem('newList', JSON.stringify(newList));
+}
+      </pre>
+      <pre>
+
+      </pre>
+      </div>
+     
+    </div>
+    <!-- <div class="row"">
+      <div class=" col-6">
+
+      </div>
+    </div> -->
+  </section>
+
+  <script>
+    var newList =[
+      // { people: '居民一號', gender: '女', gold: '77' },
+      // { people: '居民二號', gender: '男', gold: '99' },
+      // { people: '居民三號', gender: '女', gold: '333' }
+    ]
+    newList = JSON.parse(localStorage.getItem('newList')); 
+    // console.log(newList);
+    //練習3
+    //將newList obj資料寫入<ul><li>
+    function updateList(e) {
+        var str = '';
+        var len = newList.length;
+        for (var i = 0; i < len; i++) {
+          str += `
+        <li class="listli" data-idx='${i}'>${newList[i].people}</li>
+      `;
+        }
+        
+        document.querySelector('.list').innerHTML = str;
+        document.getElementById('idListObj').innerHTML = JSON.stringify(newList);
+    }
+    updateList();
+
+    document.querySelector('.list').addEventListener('click', delItem, false);
+    //點到哪個li，就刪除第[i]筆資料
+    function delItem(e){
+      var domName = e.target.nodeName;
+      if(domName != 'LI') {
+        console.log(domName);
+        return;
+      }
+      var idx = e.target.dataset.idx;
+      console.log('要刪除第_筆:'+idx)
+      //刪除
+      newList.splice(idx, 1);
+      // console.log(JSON.stringify(newList));
+      document.getElementById('idListObj').innerHTML = JSON.stringify(newList);
+      updateList();
+      localStorage.setItem('newList', JSON.stringify(newList));
+    }
+
+  </script>
+
+</body>
+</html>
