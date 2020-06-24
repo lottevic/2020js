@@ -149,7 +149,7 @@ select{
   width: 50%;
 }
 pre, xmp { font-family:inherit;   font-size: .8rem;  word-break: break-all;  white-space: pre-wrap;}
-pre span{ color: red;}
+pre span, xmp span{ color: red;}
 .snapwrapper{
   display: flex;
   justify-content: flex-start;

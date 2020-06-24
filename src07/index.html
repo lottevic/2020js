@@ -32,13 +32,30 @@
     <div class="row"">
 
       <div class="col-6" >
-        <button id='idSetLi'>重置資料</button>
+        
         <ul class='list'>
           <li class="listli" data-gender='男' data-gold='5'>林克</li>
           <li class="listli" data-gender='女' data-gold='18'>綠醬</li>
         </ul>
-        <p>印出所選Item：<p id='idResult'></p></p>
-      
+        <p >印出所選Item：<p id='idResult'></p></p>
+        <p>&nbsp;</p>
+<pre>
+  //印出所選Item：
+  function printItem(e){
+  var domName = e.target.nodeName;
+  if(domName != 'LI') {
+  console.log(domName);
+  return;
+  }
+  var rst = `
+  姓名: &lt;b> ${e.target.textContent} &lt;/b>&lt;br>
+  <span>性別: &lt;b> ${e.target.dataset.gender} &lt;/b>，
+  金幣數：&lt;b>${e.target.dataset.gold}&lt;/b></span>
+  `;
+  document.getElementById('idResult').innerHTML= rst;
+  }
+</pre>
+      <button id='idSetLi'>重置資料</button>
       <xmp>
 //重置資料
 var newList =[
@@ -56,20 +73,7 @@ function updateList(e) {
   }
     document.querySelector('.list').innerHTML = str;  
 }
-//印出所選Item：
-function printItem(e){
-  var domName = e.target.nodeName;
-  if(domName != 'LI') {
-    console.log(domName);
-    return;
-  }
-  var rst = `
-    姓名: <b> ${e.target.textContent} </b><br>
-    性別: <b> ${e.target.dataset.gender} </b>，
-    金幣數：<b>${e.target.dataset.gold}</b>
-  `;
-  document.getElementById('idResult').innerHTML= rst;
-}        
+      
 </xmp>
       </div>
       <div class="col-6">
