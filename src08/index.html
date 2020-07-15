@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-TW">
+<head>
+  <title>Ajax 練習</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+
+  <style>
+    .listli{
+      padding: 5px 10px;
+      background-color: lightpink;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 一樣的menu -->
+  <nav class="v-topmenu">
+    <div class="v-logo"><a href='#'>Ajax 練習</a></div>
+    <ul class="v-topitem">
+      <li class="v-item"><a href="index.html" class="active" id='item1'>練習1</a></li>
+      <li class="v-item"><a href="index2.html" class="" id='item1'>練習2</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <div class="row"">
+
+      <div class="col-6" >
+<p>非同步</p>
+<pre>
+var xhr = new XMLHttpRequest();
+// 格式: (get/post, 網址, true-非同步，資料往下跑/false-同步，等資料回傳)
+<span>xhr.open('get','https://hexschool.github.io/ajaxHomework/data.json',true);</span>
+xhr.send(null);
+</pre>
+
+<p>同步</p>
+<pre>
+var xhr2 = new XMLHttpRequest();
+// 格式: (get/post, 網址, true-非同步，資料往下跑/false-同步，等資料回傳)
+<span>xhr2.open('get','https://hexschool.github.io/ajaxHomework/data.json',false);</span>
+xhr2.send(null);
+</pre>
+
+
+</pre>
+      </div>
+      <div class="col-6">
+        <p>讀入以下資料:</p>
+        <p>姓名:<span class='message'></span></p>
+        <p>onload</p>
+        <pre>
+<span>xhr.onload = function(){</span>
+  var str = JSON.parse(xhr.responseText);
+  document.querySelector('.message').textContent = str[0].name;
+}
+      </div>
+    </div>
+    
+  </section>
+
+  <script>
+    var xhr = new XMLHttpRequest();
+    console.log('xhr = new XMLHttpRequest()');
+    console.log('readyState:' + xhr.readyState);
+    // 格式: (get/post, 網址, true-非同步，資料往下跑/false-同步，等資料回傳)
+    xhr.open('get','https://hexschool.github.io/ajaxHomework/data.json',true);
+    console.log('xhr.open true - 非同步');
+    console.log('readyState:' + xhr.readyState);
+    xhr.send(null);
+    console.log('xhr.send');
+    console.log('readyState:' + xhr.readyState);
+    console.log('xhr.responseText ='+ xhr.responseText);
+//false
+    var xhr2 = new XMLHttpRequest();
+    console.log('xhr2 = new XMLHttpRequest()');
+    console.log('readyState:' + xhr2.readyState);
+    // 格式: (get/post, 網址, true-非同步，資料往下跑/false-同步，等資料回傳)
+    xhr2.open('get','https://hexschool.github.io/ajaxHomework/data.json',false);
+    console.log('xhr2.open false - 同步');
+    console.log('readyState:' + xhr2.readyState);
+    xhr2.send(null);
+    console.log('xhr2.send');
+    console.log('readyState:' + xhr2.readyState);
+    console.log('xhr2.responseText =' + xhr2.responseText);
+//xhr load完才觸發
+    xhr.onload = function(){
+      console.log('----- xhr onload ------');
+      console.log('xhr.responseText =' + xhr.responseText);
+      var str = JSON.parse(xhr.responseText);
+      // console.log( str[0].name);
+      document.querySelector('.message').textContent = str[0].name;
+    }
+  </script>
+
+</body>
+</html>

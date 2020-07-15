@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-TW">
+<head>
+  <title>Ajax 練習</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+
+  <style>
+    .listli{
+      padding: 5px 10px;
+      background-color: lightpink;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 一樣的menu -->
+  <nav class="v-topmenu">
+    <div class="v-logo"><a href='#'>Ajax 練習</a></div>
+    <ul class="v-topitem">
+      <li class="v-item"><a href="index.html" class="" id='item1'>練習1</a></li>
+      <li class="v-item"><a href="index2.html" class="active" id='item1'>練習2</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <div class="row"">
+
+      <div class="col-6" >
+        <h1>check回傳的狀態</h1>
+        <p>正確，會回傳status = 200</p>
+        <pre>
+var xhr = new XMLHttpRequest();
+xhr.open('get',<span>'https://hexschool.github.io/ajaxHomework/data.json',</span> true);
+xhr.send(null);
+xhr.onload = function(){
+  <span>console.log('xhr.status = ' + xhr.status);</span>
+}
+        </pre>
+        <p>錯誤，會回傳status = 404</p>
+        <pre>
+var xhr2 = new XMLHttpRequest();
+xhr2.open('get',<span>'https://hexschool.github.io/ajaxHomework/dataAAA.json',</span> true);
+xhr2.send(null);
+xhr2.onload = function(){
+  <span>console.log('xhr2.status = ' + xhr2.status);</span>
+}
+        </pre>
+      </div>
+      <div class="col-6">
+        <h1>CORS (Cross-Origin Resource Sharing)</h1>
+        <p>get opendata</p>
+        <p><a href='https://data.epa.gov.tw/dataset/aqx_p_432/resource/8ff027dc-2da2-42e8-85de-78ac3faf470e' target='_blank' rel="noreferrer noopener">空氣AQI指標</a></p>
+        <p><a href="http://test-cors.org/" target='_blank' rel="noreferrer noopener">test-cors.org</a></p>
+        <p>測試cors結果若為status=200，表示可以成功接取</p>
+        <table>
+          <tr>
+            <th>SiteName</th>
+            <th>AQI</th><th>Status</th>
+          </tr>
+          <tr>
+            <td class='sname'>111</td><td class='aqi'>222</td><td class='status'>333</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+  </section>
+
+  <script>
+//status    
+    var xhr = new XMLHttpRequest();
+    // 格式: (get/post, 網址, true-非同步，資料往下跑/false-同步，等資料回傳)
+    xhr.open('get','https://hexschool.github.io/ajaxHomework/data.json',true);
+    xhr.send(null);
+    xhr.onload = function(){
+      console.log('xhr.status = ' + xhr.status);
+    }
+    var xhr2= new XMLHttpRequest();
+    // 格式: (get/post, 網址, true-非同步，資料往下跑/false-同步，等資料回傳)
+    xhr2.open('get','https://hexschool.github.io/ajaxHomework/dataAAA.json',true);
+    xhr2.send(null);
+    xhr2.onload = function(){
+      console.log('xhr2.status = ' + xhr2.status);
+    }
+//opendata
+    var xhr3 = new XMLHttpRequest();
+    xhr3.open('get','https://data.epa.gov.tw/api/v1/aqx_p_432?format=json&limit=5&api_key=9be7b239-557b-4c10-9775-78cadfc555e9',true);
+    xhr3.send(null);
+    xhr3.onload = function(){
+      if(xhr3.status == 200){
+        var str = JSON.parse(xhr3.responseText);
+        console.log(str.records[0].SiteName);
+        document.querySelector('.sname').textContent = str.records[0].SiteName;
+        document.querySelector('.aqi').textContent = str.records[0].AQI;
+        document.querySelector('.status').textContent = str.records[0].Status;
+      }
+    }
+  </script>
+
+</body>
+</html>
