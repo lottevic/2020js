@@ -2,6 +2,14 @@
 
 [js入門篇](https://www.udemy.com/course/javascript-learning/)
 
+# 第15節 AJAX 前半節 (7月 week1-2/src08)
+- AJAX 前面45分鐘部份內容
+
+![printscreen](src08/photo/video.png)
+- AJAX 練習
+- [連結](https://lottevic.github.io/2020js/src08)
+
+
 #  (6月 week3-4/src06,src07)
 - mousemove event小範例
 - [連結](https://lottevic.github.io/2020js/src06)
